@@ -1,0 +1,21 @@
+<!-- <ul>
+  <li><a href="">Game Setup</a></li>
+  <li><a href="">Game Board</a></li>
+  <li><a href="">Finished games list</a></li>
+</ul> -->
+
+<h1>{{ title }}</h1>
+<h2 *ngIf="!showRecord">Mines left: {{ numberMinesText }}</h2>
+<h2 *ngIf="showRecord">{{ numberMinesText }}</h2>
+<div class="board">
+  <ng-container *ngFor="let row of board">
+    <div
+      [attr.data-status]="cell.status"
+      *ngFor="let cell of row"
+      (click)="onClick(cell)"
+      (contextmenu)="onRightClick($event, cell)"
+    >
+      {{ cell?.text }}
+    </div>
+  </ng-container>
+</div>
