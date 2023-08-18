@@ -1,0 +1,17 @@
+<table *ngIf="games.length > 0; else empty" border="1">
+  <tr>
+    <th>Hora de inicio</th>
+    <th>Hora de fin</th>
+    <th>Dificultad</th>
+    <th>Tiempo transcurrido</th>
+  </tr>
+  <tr *ngFor="let game of games">
+    <td>{{ game.startTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
+    <td>{{ game.endTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
+    <td>{{ game.difficulty }}</td>
+    <td>{{ game.spentTime }}</td>
+  </tr>
+</table>
+<ng-template #empty>
+  <h2>No hay registros!!</h2>
+</ng-template>

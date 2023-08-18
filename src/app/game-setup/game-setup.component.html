@@ -1,0 +1,40 @@
+<h1>Game Setup</h1>
+<div *ngIf="!showBoard">
+  <hr />
+  <h2>Antes de comenzar favor de registrar los siguiente parametros:</h2>
+  <form [formGroup]="frmSetup" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <label for="rows">Filas:</label>
+      <input type="rows" name="rows" formControlName="rows" id="rows" />
+    </div>
+    <br />
+    <div class="row">
+      <label for="columns">Columnas:</label>
+      <input
+        type="columns"
+        name="columns"
+        formControlName="columns"
+        id="columns"
+      />
+    </div>
+    <br />
+    <div class="row">
+      <ng-container *ngFor="let level of levels">
+        <input
+          type="radio"
+          id="rbtn-{{ level.id }}"
+          name="level"
+          [value]="level.value"
+          formControlName="level"
+        />
+        <label htmlFor="rbtn-{{ level.id }}">{{ level.name }}</label>
+      </ng-container>
+    </div>
+    <br />
+    <button type="submit" [disabled]="!frmSetup.valid">Registrar</button>
+  </form>
+</div>
+
+<hr />
+
+<app-game-board *ngIf="showBoard" />

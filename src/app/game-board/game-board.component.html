@@ -1,0 +1,26 @@
+<ul>
+  <li>Filas: {{ rows }}</li>
+  <li>Columnas: {{ columns }}</li>
+  <li>#Minas: {{ numberMines }} ({{ descriptionMines }})</li>
+  <li>Fecha Inicio: {{ startTime | date : "dd/MM/yyyy hh:mm:ss a" }}</li>
+  <li>Fecha Fin : {{ endTime | date : "dd/MM/yyyy hh:mm:ss a" }}</li>
+</ul>
+
+<div style="display: flex; justify-content: space-between">
+  <h2 *ngIf="!showRecord">Minas restantes: {{ numberMinesText }}</h2>
+  <h2 *ngIf="showRecord">{{ numberMinesText }}</h2>
+  <button (click)="finishGame()">Terminar juego</button>
+</div>
+
+<div class="board">
+  <ng-container *ngFor="let row of board">
+    <div
+      [attr.data-status]="cell.status"
+      *ngFor="let cell of row"
+      (click)="onClick(cell)"
+      (contextmenu)="onRightClick($event, cell)"
+    >
+      {{ cell?.text }}
+    </div>
+  </ng-container>
+</div>
