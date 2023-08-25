@@ -1,40 +1,85 @@
-<h1>Game Setup</h1>
-<div *ngIf="!showBoard">
-  <hr />
-  <h2>Antes de comenzar favor de registrar los siguiente parametros:</h2>
-  <form [formGroup]="frmSetup" (ngSubmit)="onSubmit()">
-    <div class="row">
-      <label for="rows">Filas:</label>
-      <input type="rows" name="rows" formControlName="rows" id="rows" />
-    </div>
-    <br />
-    <div class="row">
-      <label for="columns">Columnas:</label>
-      <input
-        type="columns"
-        name="columns"
-        formControlName="columns"
-        id="columns"
-      />
-    </div>
-    <br />
-    <div class="row">
-      <ng-container *ngFor="let level of levels">
+<ng-container *ngIf="!showBoard">
+  <form
+    [formGroup]="frmSetup"
+    (ngSubmit)="onSubmit()"
+    class="w-full max-w-lg mt-3"
+  >
+    <div class="flex flex-wrap -mx-3">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="grid-first-name"
+        >
+          Filas
+        </label>
         <input
-          type="radio"
-          id="rbtn-{{ level.id }}"
-          name="level"
-          [value]="level.value"
-          formControlName="level"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          name="rows"
+          autocomplete="off"
+          formControlName="rows"
+          id="rows"
+          type="text"
+          placeholder="Número de filas"
         />
-        <label htmlFor="rbtn-{{ level.id }}">{{ level.name }}</label>
-      </ng-container>
+        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+      </div>
     </div>
-    <br />
-    <button type="submit" [disabled]="!frmSetup.valid">Registrar</button>
+    <div class="flex flex-wrap -mx-3">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="grid-first-name"
+        >
+          Columnas
+        </label>
+        <input
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          name="columns"
+          autocomplete="off"
+          formControlName="columns"
+          id="columns"
+          type="text"
+          placeholder="Número de columnas"
+        />
+        <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div class="mt-3 space-y-3">
+          <div class="flex items-center gap-x-3" *ngFor="let level of levels">
+            <input
+              id="rbtn-{{ level.id }}"
+              name="level"
+              [value]="level.value"
+              formControlName="level"
+              type="radio"
+              class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+            />
+            <label
+              htmlFor="rbtn-{{ level.id }}"
+              class="uppercase block text-sm font-medium leading-6 text-gray-900"
+              >{{ level.name }}</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mt-3">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <button
+          [disabled]="!frmSetup.valid"
+          [class.cursor-not-allowed]="!frmSetup.valid"
+          [class.opacity-50]="!frmSetup.valid"
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Registrar
+        </button>
+      </div>
+    </div>
   </form>
-</div>
-
-<hr />
+  <hr class="mt-3" />
+</ng-container>
 
 <app-game-board *ngIf="showBoard" />

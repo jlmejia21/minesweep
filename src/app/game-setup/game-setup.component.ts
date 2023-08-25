@@ -21,9 +21,9 @@ import { LoadGameSetupSuccess } from '../store/game-setup/game-setup.actions';
 export class GameSetupComponent {
   frmSetup!: FormGroup;
   levels = [
-    { id: 1, name: 'Facil', value: 10 },
+    { id: 1, name: 'Fácil', value: 10 },
     { id: 2, name: 'Medio', value: 5 },
-    { id: 3, name: 'Dificil', value: 2 },
+    { id: 3, name: 'Difícil', value: 2 },
   ];
   showBoard = false;
 

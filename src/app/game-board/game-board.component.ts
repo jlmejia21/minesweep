@@ -15,6 +15,7 @@ import {
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
+  styleUrls: ['./game-board.component.scss'],
   standalone: true,
   imports: [CommonModule],
 })

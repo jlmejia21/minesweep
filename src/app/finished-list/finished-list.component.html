@@ -1,17 +1,35 @@
-<table *ngIf="games.length > 0; else empty" border="1">
-  <tr>
-    <th>Hora de inicio</th>
-    <th>Hora de fin</th>
-    <th>Dificultad</th>
-    <th>Tiempo transcurrido</th>
-  </tr>
-  <tr *ngFor="let game of games">
-    <td>{{ game.startTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
-    <td>{{ game.endTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
-    <td>{{ game.difficulty }}</td>
-    <td>{{ game.spentTime }}</td>
-  </tr>
-</table>
-<ng-template #empty>
-  <h2>No hay registros!!</h2>
-</ng-template>
+<div class="mt-3">
+  <table
+    *ngIf="games.length > 0; else empty"
+    class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400"
+    >
+      <tr>
+        <th class="px-6 py-3">Hora de inicio</th>
+        <th class="px-6 py-3">Hora de fin</th>
+        <th class="px-6 py-3">Dificultad</th>
+        <th class="px-6 py-3">Tiempo transcurrido</th>
+        <th class="px-6 py-3">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let game of games">
+        <td>{{ game.startTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
+        <td>{{ game.endTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
+        <td>{{ game.difficulty }}</td>
+        <td>{{ game.spentTime }}</td>
+        <td>{{ game.spentTime }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #empty>
+    <div
+      class="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:text-yellow-300"
+      role="alert"
+    >
+      <span class="font-medium">No hay registros!!</span>
+    </div>
+  </ng-template>
+</div>

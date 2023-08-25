@@ -1,4 +1,8 @@
-<ul>
+<h2 class="mb-2 text-lg font-semibold">Resumen:</h2>
+
+<ul
+  class="max-w-md space-y-1 text-gray-500 list-none list-inside dark:text-gray-400"
+>
   <li>Filas: {{ rows }}</li>
   <li>Columnas: {{ columns }}</li>
   <li>#Minas: {{ numberMines }} ({{ descriptionMines }})</li>
@@ -6,10 +10,16 @@
   <li>Fecha Fin : {{ endTime | date : "dd/MM/yyyy hh:mm:ss a" }}</li>
 </ul>
 
-<div style="display: flex; justify-content: space-between">
+<div class="flex mb-2 justify-between">
   <h2 *ngIf="!showRecord">Minas restantes: {{ numberMinesText }}</h2>
   <h2 *ngIf="showRecord">{{ numberMinesText }}</h2>
-  <button (click)="finishGame()">Terminar juego</button>
+
+  <button
+    (click)="finishGame()"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Terminar juego
+  </button>
 </div>
 
 <div class="board">

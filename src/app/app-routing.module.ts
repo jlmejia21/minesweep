@@ -16,6 +16,7 @@ export const appRoutes: Routes = [
         (m) => m.FinishedListComponent
       ),
   },
+  { path: '', redirectTo: '/game-setup', pathMatch: 'full' },
 ];
 
 @NgModule({
