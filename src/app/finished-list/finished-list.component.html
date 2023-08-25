@@ -19,8 +19,8 @@
         <td>{{ game.startTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
         <td>{{ game.endTime | date : "dd/MM/yyyy hh:mm:ss a" }}</td>
         <td>{{ game.difficulty }}</td>
-        <td>{{ game.spentTime }}</td>
-        <td>{{ game.spentTime }}</td>
+        <td>{{ game.spentTime | milliseconds }}</td>
+        <td>{{ game.status }}</td>
       </tr>
     </tbody>
   </table>

@@ -3,5 +3,6 @@ export interface Game {
   startTime: string;
   endTime: string;
   difficulty: string;
-  spentTime: string;
+  spentTime: number;
+  status: string;
 }

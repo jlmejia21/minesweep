@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Levels } from '../commons/const/levels';
 import { GameBoardComponent } from '../game-board/game-board.component';
 import { AppState } from '../store/app.reducer';
 import { LoadGameSetupSuccess } from '../store/game-setup/game-setup.actions';
@@ -20,11 +21,7 @@ import { LoadGameSetupSuccess } from '../store/game-setup/game-setup.actions';
 })
 export class GameSetupComponent {
   frmSetup!: FormGroup;
-  levels = [
-    { id: 1, name: 'Fácil', value: 10 },
-    { id: 2, name: 'Medio', value: 5 },
-    { id: 3, name: 'Difícil', value: 2 },
-  ];
+  levels = Levels;
   showBoard = false;
 
   constructor(

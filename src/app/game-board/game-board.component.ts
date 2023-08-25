@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { TILE_STATUSES } from '../commons/enum/tileStatuses';
 import { Coordinate, CoordinateMine } from '../commons/interfaces/coordinate';
 import { Game } from '../commons/interfaces/game';
+import { GameFbService } from '../commons/services/game-fb.service';
 import { GameService } from '../commons/services/game.service';
 import { AppState } from '../store/app.reducer';
 import {
@@ -33,7 +34,8 @@ export class GameBoardComponent implements OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private gameService: GameService
+    private gameService: GameService,
+    private gameFbService: GameFbService
   ) {
     this.store
       .select('gameSetupStore')
@@ -127,10 +129,11 @@ export class GameBoardComponent implements OnDestroy {
     }
   }
 
-  onClick(cell: Coordinate) {
+  onClick(cell: Coordinate, event: any) {
+    console.log(event);
     if (this.showRecord) return;
     this.revealTile(this.board, cell);
-    this.checkGameEnd();
+    this.checkGameEnd(event);
   }
 
   revealTile(board: Coordinate[][], cell: Coordinate) {
@@ -147,7 +150,7 @@ export class GameBoardComponent implements OnDestroy {
     const adjacentTiles = this.nearbyTiles(board, cell);
     const mines = adjacentTiles.filter((t) => t.mine);
     if (mines.length === 0) {
-      adjacentTiles.forEach((cell) => this.onClick(cell));
+      adjacentTiles.forEach((cell) => this.revealTile(this.board, cell));
     } else {
       cell.text = mines.length;
     }
@@ -185,14 +188,15 @@ export class GameBoardComponent implements OnDestroy {
     );
   }
 
-  checkGameEnd() {
+  checkGameEnd(event: any) {
     const win = this.checkWin(this.board);
     const lose = this.checkLose(this.board);
     if (win || lose) {
+      event.stopImmediatePropagation();
       this.showRecord = true;
       this.store.dispatch(LoadGameSetupFinishGame({ endTime: new Date() }));
-      // this.store.dispatch(LoadGameSetupInit());
-      this.addGame();
+      const status = win ? 'Ganó' : 'Perdió';
+      this.addGame(status);
     }
     if (win) this.numberMinesText = 'Ganaste!! 🤩🥳';
     if (lose) {
@@ -206,15 +210,22 @@ export class GameBoardComponent implements OnDestroy {
     }
   }
 
-  addGame() {
-    const newGame = {
+  stopProp(e: any) {
+    e.stopImmediatePropagation();
+  }
+
+  addGame(status: string) {
+    console.log('aaa');
+    const newGame: Game = {
       id: '',
-      startTime: this.startTime,
-      endTime: this.endTime,
+      startTime: this.startTime.toString(),
+      endTime: this.endTime.toString(),
       difficulty: this.descriptionMines,
-      spentTime: '',
-    } as Game;
-    this.gameService.addGame(newGame);
+      spentTime: Math.abs(this.endTime - this.startTime),
+      status,
+    };
+    this.gameFbService.addGame(newGame);
+    // this.gameService.addGame(newGame);
   }
 
   checkWin(board: Coordinate[][]) {
